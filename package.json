@@ -1,0 +1,18 @@
+{
+  "name": "to-do-list",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev:front": "pnpm --filter @to-do-list/front dev",
+    "dev:back": "pnpm --filter @to-do-list/back dev",
+    "dev": "concurrently \"pnpm run dev:back\" \"pnpm run dev:front\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.14.0",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
