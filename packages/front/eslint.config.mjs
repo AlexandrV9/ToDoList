@@ -20,7 +20,8 @@ export default tseslint.config([
       globals: globals.browser,
     },
     rules: {
-      "@typescript-eslint/no-empty-object-type": "warn"
+      "@typescript-eslint/no-empty-object-type": "warn",
+      "react-refresh/only-export-components": "warn",
     }
   },
 ])

@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Box } from "~/shared";
 
 export const Route = createFileRoute("/")({
   component: IndexPage,
@@ -6,8 +7,8 @@ export const Route = createFileRoute("/")({
 
 function IndexPage() {
   return (
-    <div className="p-2">
-      <h3>IndexPage</h3>
-    </div>
+    <Box>
+      <h3>Welcome to App</h3>
+    </Box>
   );
 }

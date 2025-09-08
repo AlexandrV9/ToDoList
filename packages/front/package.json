@@ -13,12 +13,15 @@
   "dependencies": {
     "@chakra-ui/react": "^3.26.0",
     "@emotion/react": "^11.14.0",
+    "@hookform/resolvers": "^5.2.1",
     "@tanstack/react-router": "^1.131.35",
     "@tanstack/react-router-devtools": "^1.131.35",
+    "clsx": "^2.1.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-hook-form": "^7.62.0",
     "react-icons": "^5.5.0",
+    "zod": "^4.1.5",
     "zustand": "^5.0.8"
   },
   "devDependencies": {
