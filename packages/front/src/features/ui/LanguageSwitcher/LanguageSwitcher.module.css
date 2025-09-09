@@ -1,0 +1,11 @@
+.item {
+  color: black;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &[data-state="checked"] {
+    background-color: rgb(213, 213, 213);
+  }
+}

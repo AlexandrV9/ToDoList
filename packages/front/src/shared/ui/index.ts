@@ -8,3 +8,6 @@ export * from "./Box";
 export * from "./Field";
 export * from "./Stack";
 export * from "./Link";
+export * from "./Switch";
+export * from "./Select";
+export * from "./Portal";

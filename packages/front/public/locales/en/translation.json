@@ -1,0 +1,50 @@
+{
+  "languages": {
+    "en": "English",
+    "ru": "Русский"
+  },
+  "pages": {
+    "signIn": {
+      "form": {
+        "firstName": {
+          "placeholder": "Please enter your first name"
+        },
+        "linkText": "Create",
+        "loginInput": {
+          "label": "Login",
+          "placeholder": "Please enter your login"
+        },
+        "passwordInput": {
+          "label": "Password",
+          "placeholder": "Please enter your password"
+        },
+        "submitButton": "Enter",
+        "subtitleText": "Don't you have an account?",
+        "title": "Autorization"
+      }
+    },
+    "signUp": {
+      "form": {
+        "firstName": {
+          "label": "First name"
+        },
+        "linkText": "Sign in",
+        "loginInput": {
+          "label": "Login",
+          "placeholder": "Create a login"
+        },
+        "repeatPasswordInput": {
+          "label": "Repeat password",
+          "placeholder": "Please enter password again"
+        },
+        "subtitleText": "Do you have an account?",
+        "title": "Registration",
+        "passwordInput": {
+          "label": "Password",
+          "placeholder": "Create a strong password"
+        },
+        "submitButton": "Enter"
+      }
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "languages": {
+    "en": "English",
+    "ru": "Русский"
+  },
+  "pages": {
+    "signIn": {
+      "form": {
+        "firstName": {
+          "placeholder": "Пожалуйста введите ваше имя"
+        },
+        "linkText": "Создать",
+        "loginInput": {
+          "label": "Логин",
+          "placeholder": "Пожалуйста введите ваш логин"
+        },
+        "passwordInput": {
+          "label": "Пароль",
+          "placeholder": "Пожалуйста введите ваш пароль"
+        },
+        "submitButton": "Войти",
+        "subtitleText": "У вас еще нет аккаунта?",
+        "title": "Авторизация"
+      }
+    },
+    "signUp": {
+      "form": {
+        "firstName": {
+          "label": "Имя"
+        },
+        "linkText": "Войти",
+        "loginInput": {
+          "label": "Логин",
+          "placeholder": "Придумайте логин"
+        },
+        "passwordInput": {
+          "label": "Пароль",
+          "placeholder": "Придумайте надежный пароль"
+        },
+        "repeatPasswordInput": {
+          "label": "Повторите пароль",
+          "placeholder": "Повторите новый пароль"
+        },
+        "submitButton": "Создать",
+        "subtitleText": "У вас есть аккаунт",
+        "title": "Регистрация"
+      }
+    }
+  }
+}
