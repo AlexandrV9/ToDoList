@@ -11,3 +11,4 @@ export * from "./Link";
 export * from "./Switch";
 export * from "./Select";
 export * from "./Portal";
+export * from "./Form";

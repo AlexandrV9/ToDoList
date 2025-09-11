@@ -1,12 +1,14 @@
 import { createRouter, RouterProvider } from "@tanstack/react-router";
+import { ChakraProvider } from "@chakra-ui/react";
 
 import "~/shared/config/i18n";
+import "~/shared/styles/variable.css";
+import { ThemeProvider } from "~/shared/theme";
+import { chakraConfig } from "~/shared/config";
+import { routeTree } from "~/routeTree.gen";
 
 import "./styles/normalize.css";
 import "./styles/index.css";
-
-import { routeTree } from "~/routeTree.gen";
-import { ChakraProvider, defaultSystem } from "@chakra-ui/react";
 
 const router = createRouter({ routeTree });
 
@@ -18,8 +20,10 @@ declare module "@tanstack/react-router" {
 
 export const App = () => {
   return (
-    <ChakraProvider value={defaultSystem}>
-      <RouterProvider router={router} />
-    </ChakraProvider>
+    <ThemeProvider>
+      <ChakraProvider value={chakraConfig}>
+        <RouterProvider router={router} />
+      </ChakraProvider>
+    </ThemeProvider>
   );
 };

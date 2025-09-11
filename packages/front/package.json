@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "eslint": "eslint 'src/**/*.{js,ts,jsx,tsx}' --max-warnings 0",
     "eslint:fix": "eslint 'src/**/*.{js,ts,jsx,tsx}' --fix",
+    "generate:chakra_config": "npx @chakra-ui/cli typegen ./src/shared/config/chakra.ts",
     "preview": "vite preview"
   },
   "dependencies": {

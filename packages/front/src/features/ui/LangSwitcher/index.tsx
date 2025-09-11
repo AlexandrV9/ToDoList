@@ -1,3 +1,5 @@
+import { useCallback } from "react";
+
 import {
   createListCollection,
   Portal,
@@ -6,19 +8,18 @@ import {
   useTranslation,
 } from "~/shared";
 
-const LANGUAGES = {
+import styles from "./LangSwitcher.module.css";
+
+export const LANGUAGES = {
   en: "en",
   ru: "ru",
 } as const;
-
-import styles from "./LanguageSwitcher.module.css";
-import { useCallback } from "react";
 
 const languageListCollection = createListCollection({
   items: Object.keys(LANGUAGES).map((item) => ({ label: item, value: item })),
 });
 
-export const LanguageSwitcher = () => {
+export const LangSwitcher = () => {
   const { i18n, t } = useTranslation();
 
   const currentLn = i18n.language;
@@ -42,10 +43,13 @@ export const LanguageSwitcher = () => {
       <Select.Control>
         <Select.Trigger
           cursor="pointer"
-          borderRadius="2xl"
+          borderRadius="10px"
           justifyContent="center"
+          backgroundColor="rgb(255, 255, 255)"
         >
-          <Select.ValueText>{t(`languages.${currentLn}`)}</Select.ValueText>
+          <Select.ValueText color="rgb(0, 0, 0)" fontWeight="semibold">
+            {t(`languages.${currentLn}`)}
+          </Select.ValueText>
         </Select.Trigger>
       </Select.Control>
 
