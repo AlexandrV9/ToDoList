@@ -11,9 +11,8 @@ const theme: ThemingConfig = {
     ...defaultConfig.theme?.tokens,
     colors: {
       ...defaultConfig.theme?.tokens?.colors,
-      bgTest: { value: "var(--color-bg-primary)" },
-      textPrimary: { value: "var(--color-text-primary)" },
-      accentTest: { value: "var(--color-accent)" },
+      // exapmple
+      // testColor: { value: "var(--test-color)" },
     },
   },
 };

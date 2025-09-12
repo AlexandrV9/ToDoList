@@ -10,9 +10,8 @@ import {
   useForm,
   useTranslation,
   Link,
+  Box,
 } from "~/shared";
-
-import styles from "./FormAuthByLogin.module.css";
 
 const formSchema = z.object({
   login: z.string(),
@@ -23,7 +22,7 @@ const formSchema = z.object({
 
 type FormSchema = z.infer<typeof formSchema>;
 
-export const FormAuthByLogin = () => {
+export const SignInByLoginForm = () => {
   const { t } = useTranslation();
 
   const {
@@ -35,7 +34,13 @@ export const FormAuthByLogin = () => {
   const submitHandler = handleSubmit((data) => console.log(data));
 
   return (
-    <form onSubmit={submitHandler} className={styles.form}>
+    <Box
+      as="form"
+      display="flex"
+      flexDirection="column"
+      gap="1rem"
+      onSubmit={submitHandler}
+    >
       <Text
         as="h1"
         textStyle="4xl"
@@ -46,34 +51,33 @@ export const FormAuthByLogin = () => {
         {t("pages.signIn.form.title")}
       </Text>
 
-      <Stack.HStack backgroundColor="accentTest">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, deserunt
-        sunt. Numquam dolor mollitia eaque harum, expedita sint voluptatum nisi
-        ipsam, asperiores ipsa dicta alias eum a consequatur? Beatae, eaque!
-      </Stack.HStack>
-
       <Field.Root invalid={!!errors.login}>
-        <Field.Label className={styles.label}>
+        <Field.Label color="fg">
           {t("pages.signIn.form.loginInput.label")}
         </Field.Label>
         <Input
-          className={styles.textInput}
+          color="fg"
+          truncate
           placeholder={t("pages.signIn.form.loginInput.placeholder")}
           {...register("login")}
         />
-        <Field.ErrorText>{errors.login?.message}</Field.ErrorText>
+        <Field.ErrorText color="fg.error">
+          {errors.login?.message}
+        </Field.ErrorText>
       </Field.Root>
 
       <Field.Root invalid={!!errors.password}>
-        <Field.Label className={styles.label}>
+        <Field.Label color="fg">
           {t("pages.signIn.form.passwordInput.label")}
         </Field.Label>
         <Input.Password
-          className={styles.textInput}
+          color="fg"
+          truncate
           placeholder={t("pages.signIn.form.passwordInput.placeholder")}
+          paddingRight="52px !important" // TODO: убрать это и сделать иначе
           {...register("password")}
         />
-        <Field.ErrorText className={styles.errorText}>
+        <Field.ErrorText color="fg.error">
           {errors.password?.message}
         </Field.ErrorText>
       </Field.Root>
@@ -81,13 +85,13 @@ export const FormAuthByLogin = () => {
       <Button type="submit">{t("pages.signIn.form.submitButton")}</Button>
 
       <Stack.HStack justify="center">
-        <Text fontWeight="medium" className={styles.text}>
+        <Text fontWeight="medium" color="fg">
           <span>{t("pages.signIn.form.subtitleText")}</span>{" "}
-          <Link to="/sign-up" className={styles.link}>
-            {t("pages.signIn.form.linkText")}
-          </Link>
+          <Text asChild color="purple.500" fontWeight="600">
+            <Link to="/sign-up">{t("pages.signIn.form.linkText")}</Link>
+          </Text>
         </Text>
       </Stack.HStack>
-    </form>
+    </Box>
   );
 };

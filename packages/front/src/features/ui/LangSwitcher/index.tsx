@@ -8,8 +8,6 @@ import {
   useTranslation,
 } from "~/shared";
 
-import styles from "./LangSwitcher.module.css";
-
 export const LANGUAGES = {
   en: "en",
   ru: "ru",
@@ -36,8 +34,8 @@ export const LangSwitcher = () => {
       value={[currentLn]}
       collection={languageListCollection}
       onValueChange={(e) => handleChangeLanguage(e.value[0])}
-      minWidth="120px"
-      width="max-content"
+      minWidth={120}
+      width="fit-content"
     >
       <Select.HiddenSelect />
       <Select.Control>
@@ -45,9 +43,8 @@ export const LangSwitcher = () => {
           cursor="pointer"
           borderRadius="10px"
           justifyContent="center"
-          backgroundColor="rgb(255, 255, 255)"
         >
-          <Select.ValueText color="rgb(0, 0, 0)" fontWeight="semibold">
+          <Select.ValueText color="fg" fontWeight="semibold">
             {t(`languages.${currentLn}`)}
           </Select.ValueText>
         </Select.Trigger>
@@ -55,9 +52,14 @@ export const LangSwitcher = () => {
 
       <Portal>
         <Select.Positioner>
-          <Select.Content className={styles.content}>
+          <Select.Content>
             {languageListCollection.items.map(({ label, value: ln }) => (
-              <Select.Item item={label} key={ln} className={styles.item}>
+              <Select.Item
+                item={label}
+                key={ln}
+                color="fg"
+                _hover={{ cursor: "pointer" }}
+              >
                 <Text fontWeight="medium">{t(`languages.${ln}`)}</Text>
               </Select.Item>
             ))}

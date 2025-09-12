@@ -1,47 +1,39 @@
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 import type { Theme } from "./types";
 import { ThemeContext } from "./context";
+import { getSystemTheme } from "./utils";
 
 export type ThemeProviderProps = {
   children: ReactNode;
 };
 
-export const ThemeProvider = ({ children }: ThemeProviderProps) => {
-  const [theme, setTheme] = useState<Theme>(() => {
-    const saved = localStorage.getItem("theme") as Theme;
-    const systemPrefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
+const getInitialTheme = () => {
+  const saved = localStorage.getItem("theme") as Theme;
+  const systemTheme = getSystemTheme();
 
-    return saved || (systemPrefersDark ? "dark" : "light");
-  });
+  if (!saved) return systemTheme;
+
+  return saved === "system" ? systemTheme : saved;
+};
+
+export const ThemeProvider = ({ children }: ThemeProviderProps) => {
+  const [theme, setTheme] = useState<Theme>(() => getInitialTheme());
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
   };
 
   const changeTheme = useCallback((theme: Theme) => {
-    if (theme !== "system") {
-      setTheme(theme);
-      return;
-    }
-
-    const systemPrefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-
-    setTheme(systemPrefersDark ? "dark" : "light");
+    setTheme(theme);
   }, []);
 
   useEffect(() => {
-    // Сохраняем в localStorage
     localStorage.setItem("theme", theme);
 
-    // Устанавливаем data-theme атрибут
-    document.documentElement.setAttribute("data-theme", theme);
+    const _theme = theme === "system" ? getSystemTheme() : theme;
 
-    // Также устанавливаем class для совместимости
-    document.documentElement.classList.toggle("dark", theme === "dark");
+    document.documentElement.setAttribute("data-theme", _theme);
+    document.documentElement.classList = _theme;
   }, [theme]);
 
   return (

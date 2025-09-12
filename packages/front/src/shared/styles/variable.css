@@ -1,20 +1,14 @@
 :root,
 [data-theme="light"] {
   /* Light theme */
-  --color-bg-primary: #0ba469;
-  --color-text-primary: #1a202c;
-  --color-accent: red;
+  /* --text-color: red; */
 }
 
 [data-theme="dark"] {
   /* Dark theme */
-  --color-bg-primary: #082257;
-  --color-text-primary: #628e17;
-  --color-accent: blue;
+  /* --text-color: blue; */
 }
 
 html,
 body {
-  background-color: var(--color-bg-primary);
-  color: var(--color-text-primary);
 }

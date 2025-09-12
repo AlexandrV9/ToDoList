@@ -1,23 +1,31 @@
-import { Box, Flex } from "~/shared";
+import { Box, Flex, Stack } from "~/shared";
 import { LangSwitcher, ThemeSwitcher } from "~/features";
-import { FormAuthByLogin } from "~/widgets";
-
-import styles from "./SignInPage.module.css";
+import { SignInByLoginForm } from "~/widgets";
 
 export function SignInPage() {
   return (
-    <div className={styles.page}>
-      <div className={styles.content}>
+    <Flex direction="column" padding="1rem" gap="1rem" height="full">
+      <Flex direction="column" gap="0.5rem" height="full">
         <Flex justifyContent="end">
           <ThemeSwitcher />
         </Flex>
-        <Box className={styles.formWrapper}>
-          <FormAuthByLogin />
-        </Box>
-        <Flex justify="center">
-          <LangSwitcher />
-        </Flex>
-      </div>
-    </div>
+        <Stack.VStack flexGrow={1} align="center" justify="center">
+          <Box
+            padding="2rem"
+            bg="bg"
+            borderRadius="xl"
+            width="full"
+            minWidth={320}
+            maxWidth={380}
+            shadow="0 2px 8px rgba(0, 0, 0, 0.1)"
+          >
+            <SignInByLoginForm />
+          </Box>
+          <Flex justify="center">
+            <LangSwitcher />
+          </Flex>
+        </Stack.VStack>
+      </Flex>
+    </Flex>
   );
 }

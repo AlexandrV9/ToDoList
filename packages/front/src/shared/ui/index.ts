@@ -12,3 +12,4 @@ export * from "./Switch";
 export * from "./Select";
 export * from "./Portal";
 export * from "./Form";
+export * from "./Box";
