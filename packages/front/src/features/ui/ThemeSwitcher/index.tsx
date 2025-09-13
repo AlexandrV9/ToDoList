@@ -31,8 +31,10 @@ export const ThemeSwitcher = () => {
       <Select.Control>
         <Select.Trigger
           cursor="pointer"
-          borderRadius="10px"
           justifyContent="center"
+          borderRadius={12}
+          shadow="0 2px 8px rgba(0, 0, 0, 0.25)"
+          border="1px solid border.emphasized"
         >
           <Select.ValueText color="fg" fontWeight="semibold">
             {theme}

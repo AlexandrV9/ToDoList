@@ -11,9 +11,7 @@ const getInitialTheme = () => {
   const saved = localStorage.getItem("theme") as Theme;
   const systemTheme = getSystemTheme();
 
-  if (!saved) return systemTheme;
-
-  return saved === "system" ? systemTheme : saved;
+  return saved ? saved : systemTheme;
 };
 
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
