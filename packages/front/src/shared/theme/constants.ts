@@ -1,5 +1,5 @@
 export const THEMES = {
   dark: "dark",
-  ligt: "ligt",
+  light: "light",
   system: "system",
 } as const;

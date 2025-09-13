@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Box } from "~/shared";
+import { Box } from "~/shared/ui";
 
 export const Route = createFileRoute("/")({
   component: IndexPage,

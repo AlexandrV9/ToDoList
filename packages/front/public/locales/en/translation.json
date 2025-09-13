@@ -33,18 +33,31 @@
           "label": "Login",
           "placeholder": "Create a login"
         },
-        "repeatPasswordInput": {
-          "label": "Repeat password",
-          "placeholder": "Please enter password again"
-        },
-        "subtitleText": "Do you have an account?",
-        "title": "Registration",
         "passwordInput": {
           "label": "Password",
           "placeholder": "Create a strong password"
         },
-        "submitButton": "Enter"
+        "repeatPasswordInput": {
+          "label": "Repeat password",
+          "placeholder": "Please enter password again"
+        },
+        "submitButton": "Enter",
+        "subtitleText": "Do you have an account?",
+        "title": "Registration"
       }
+    },
+    "welcome": {
+      "description": "We're glad to have you in our app! Here you'll find all the tools you need for productive work and easy task management.",
+      "featureList": [
+        "Create and organize tasks",
+        "Track your progress in real-time",
+        "Plan with smart reminders",
+        "Take notes",
+        "Work more effectively with your team"
+      ],
+      "featureListTitle": "All your productivity tools in a single platform:",
+      "goToSignInButton": "Start Using Now",
+      "title": "Welcome!"
     }
   }
 }

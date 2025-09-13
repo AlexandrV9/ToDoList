@@ -13,3 +13,7 @@ export * from "./Select";
 export * from "./Portal";
 export * from "./Form";
 export * from "./Box";
+export * from "./Heading";
+export * from "./List";
+export * from "./icons";
+export * from "./controls";

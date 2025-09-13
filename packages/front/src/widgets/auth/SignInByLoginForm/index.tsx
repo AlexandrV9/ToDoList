@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
+import { useTranslation } from "~/shared/hooks";
 
 import {
   Button,
@@ -7,11 +8,10 @@ import {
   Input,
   Stack,
   Text,
-  useForm,
-  useTranslation,
   Link,
   Box,
-} from "~/shared";
+  useForm,
+} from "~/shared/ui";
 
 const formSchema = z.object({
   login: z.string(),
