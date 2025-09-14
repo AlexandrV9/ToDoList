@@ -17,7 +17,7 @@ const formSchema = z.object({
   login: z.string(),
   password: z
     .string()
-    .min(6, "The password is short, the minimum length of 8 symbols"),
+    .min(6, "The password is short,  the minimum length of 8 symbols"),
 });
 
 type FormSchema = z.infer<typeof formSchema>;

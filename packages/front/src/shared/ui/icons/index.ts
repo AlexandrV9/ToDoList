@@ -5,3 +5,5 @@ export * from "./Sun";
 export * from "./Moon";
 export * from "./Chip";
 export * from "./ArrowLeft";
+export * from "./Bookmark";
+export * from "./Home";

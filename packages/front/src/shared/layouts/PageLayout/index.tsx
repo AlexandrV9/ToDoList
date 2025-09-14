@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 
 import styles from "./PageLayout.module.css";
 import { Box } from "~/shared/ui";
+import { BottomContainer, TopContainer } from "./components";
 
 export type PageLayoutProps = {
   className?: string;
@@ -16,3 +17,6 @@ export const PageLayout = ({ children, className }: PageLayoutProps) => {
     </Box>
   );
 };
+
+PageLayout.BottomContainer = BottomContainer;
+PageLayout.TopContainer = TopContainer;
