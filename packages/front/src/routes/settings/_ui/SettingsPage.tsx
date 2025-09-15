@@ -1,13 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { PageLayout } from "~/shared/layouts";
 import { Box } from "~/shared/ui";
 import { NavBar } from "~/widgets";
 
-export const Route = createFileRoute("/")({
-  component: IndexPage,
-});
-
-function IndexPage() {
+export function SettingsPage() {
   return (
     <Box display="flex" flexDirection="column" height="full">
       <PageLayout.TopContainer
@@ -24,7 +19,7 @@ function IndexPage() {
         alignItems="center"
         flexGrow={1}
       >
-        MainPage
+        SettingsPage
       </Box>
       <Box width="full" h="1px" background="bg.muted" />
       <PageLayout.BottomContainer alignContent="center">

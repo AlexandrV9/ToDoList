@@ -1,23 +1,11 @@
 import type { ReactNode } from "react";
-import {
-  BookmarkIcon,
-  List,
-  CheckCircleIcon,
-  SettingsIcon,
-  Box,
-  HomeIcon,
-} from "~/shared/ui";
+import { List, Box, type IconProps } from "~/shared/ui";
+import { navItems } from "./constants";
+import { NavBarItem } from "./Item";
 
 export type NavBarItemProps = {
   children: ReactNode;
-};
-
-export const NavBarItem = ({ children }: NavBarItemProps) => {
-  return (
-    <List.Item justifyItems="center" padding={3}>
-      {children}
-    </List.Item>
-  );
+  icon: (props: IconProps) => ReactNode;
 };
 
 export const NavBar = () => {
@@ -27,19 +15,11 @@ export const NavBar = () => {
         display="grid"
         gridTemplateColumns="repeat(4, minmax(40px, 200px))"
         listStyleType="none"
+        justifyContent="center"
       >
-        <NavBarItem>
-          <HomeIcon size={30} />
-        </NavBarItem>
-        <NavBarItem>
-          <CheckCircleIcon size={30} />
-        </NavBarItem>
-        <NavBarItem>
-          <BookmarkIcon size={30} />
-        </NavBarItem>
-        <NavBarItem>
-          <SettingsIcon size={30} />
-        </NavBarItem>
+        {navItems.map((item) => (
+          <NavBarItem {...item} />
+        ))}
       </List.Root>
     </Box>
   );

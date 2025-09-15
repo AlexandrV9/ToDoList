@@ -17,3 +17,4 @@ export * from "./Heading";
 export * from "./List";
 export * from "./icons";
 export * from "./controls";
+export * from "./Avatar";
