@@ -1,12 +1,11 @@
 import { createRootRoute, Outlet } from "@tanstack/react-router";
-// import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
-import { PageLayout } from "~/shared/layouts";
+import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
 const RootLayout = () => (
-  <PageLayout>
+  <>
     <Outlet />
-    {/* <TanStackRouterDevtools /> */}
-  </PageLayout>
+    <TanStackRouterDevtools />
+  </>
 );
 
 export const Route = createRootRoute({ component: RootLayout });

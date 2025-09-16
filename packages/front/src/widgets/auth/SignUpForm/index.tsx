@@ -118,7 +118,7 @@ export const SignUpForm = () => {
         <Text fontWeight="medium" color="fg">
           <span>{t("pages.signUp.form.subtitleText")}</span>{" "}
           <Text asChild color="purple.500" fontWeight="600">
-            <Link to="/sign-in">{t("pages.signUp.form.linkText")}</Link>
+            <Link to="/signin">{t("pages.signUp.form.linkText")}</Link>
           </Text>
         </Text>
       </Stack.HStack>

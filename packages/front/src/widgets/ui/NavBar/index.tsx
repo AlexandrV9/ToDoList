@@ -18,7 +18,7 @@ export const NavBar = () => {
         justifyContent="center"
       >
         {navItems.map((item) => (
-          <NavBarItem {...item} />
+          <NavBarItem key={item.href} {...item} />
         ))}
       </List.Root>
     </Box>

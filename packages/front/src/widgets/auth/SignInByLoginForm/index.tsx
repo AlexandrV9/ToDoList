@@ -88,7 +88,7 @@ export const SignInByLoginForm = () => {
         <Text fontWeight="medium" color="fg">
           <span>{t("pages.signIn.form.subtitleText")}</span>{" "}
           <Text asChild color="purple.500" fontWeight="600">
-            <Link to="/sign-up">{t("pages.signIn.form.linkText")}</Link>
+            <Link to="/signup">{t("pages.signIn.form.linkText")}</Link>
           </Text>
         </Text>
       </Stack.HStack>

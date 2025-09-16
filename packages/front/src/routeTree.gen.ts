@@ -8,123 +8,340 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as WelcomeIndexRouteImport } from './routes/welcome/index'
-import { Route as SignUpIndexRouteImport } from './routes/sign-up/index'
-import { Route as SignInIndexRouteImport } from './routes/sign-in/index'
-import { Route as SettingsIndexRouteImport } from './routes/settings/index'
+import { createFileRoute } from '@tanstack/react-router'
 
-const IndexRoute = IndexRouteImport.update({
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as publicPublicRouteImport } from './routes/(public)/_public'
+import { Route as privatePrivateRouteImport } from './routes/(private)/_private'
+import { Route as authAuthRouteImport } from './routes/(auth)/_auth'
+import { Route as privatePrivateIndexRouteImport } from './routes/(private)/_private/index'
+import { Route as publicPublicWelcomeIndexRouteImport } from './routes/(public)/_public.welcome/index'
+import { Route as privatePrivateTasksIndexRouteImport } from './routes/(private)/_private.tasks/index'
+import { Route as privatePrivateSettingsIndexRouteImport } from './routes/(private)/_private.settings/index'
+import { Route as privatePrivateNotesIndexRouteImport } from './routes/(private)/_private.notes/index'
+import { Route as authAuthSignupIndexRouteImport } from './routes/(auth)/_auth.signup/index'
+import { Route as authAuthSigninIndexRouteImport } from './routes/(auth)/_auth.signin/index'
+
+const publicRouteImport = createFileRoute('/(public)')()
+const privateRouteImport = createFileRoute('/(private)')()
+const authRouteImport = createFileRoute('/(auth)')()
+
+const publicRoute = publicRouteImport.update({
+  id: '/(public)',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const privateRoute = privateRouteImport.update({
+  id: '/(private)',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const authRoute = authRouteImport.update({
+  id: '/(auth)',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const publicPublicRoute = publicPublicRouteImport.update({
+  id: '/_public',
+  getParentRoute: () => publicRoute,
+} as any)
+const privatePrivateRoute = privatePrivateRouteImport.update({
+  id: '/_private',
+  getParentRoute: () => privateRoute,
+} as any)
+const authAuthRoute = authAuthRouteImport.update({
+  id: '/_auth',
+  getParentRoute: () => authRoute,
+} as any)
+const privatePrivateIndexRoute = privatePrivateIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => privatePrivateRoute,
 } as any)
-const WelcomeIndexRoute = WelcomeIndexRouteImport.update({
-  id: '/welcome/',
-  path: '/welcome/',
-  getParentRoute: () => rootRouteImport,
+const publicPublicWelcomeIndexRoute =
+  publicPublicWelcomeIndexRouteImport.update({
+    id: '/welcome/',
+    path: '/welcome/',
+    getParentRoute: () => publicPublicRoute,
+  } as any)
+const privatePrivateTasksIndexRoute =
+  privatePrivateTasksIndexRouteImport.update({
+    id: '/tasks/',
+    path: '/tasks/',
+    getParentRoute: () => privatePrivateRoute,
+  } as any)
+const privatePrivateSettingsIndexRoute =
+  privatePrivateSettingsIndexRouteImport.update({
+    id: '/settings/',
+    path: '/settings/',
+    getParentRoute: () => privatePrivateRoute,
+  } as any)
+const privatePrivateNotesIndexRoute =
+  privatePrivateNotesIndexRouteImport.update({
+    id: '/notes/',
+    path: '/notes/',
+    getParentRoute: () => privatePrivateRoute,
+  } as any)
+const authAuthSignupIndexRoute = authAuthSignupIndexRouteImport.update({
+  id: '/signup/',
+  path: '/signup/',
+  getParentRoute: () => authAuthRoute,
 } as any)
-const SignUpIndexRoute = SignUpIndexRouteImport.update({
-  id: '/sign-up/',
-  path: '/sign-up/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SignInIndexRoute = SignInIndexRouteImport.update({
-  id: '/sign-in/',
-  path: '/sign-in/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SettingsIndexRoute = SettingsIndexRouteImport.update({
-  id: '/settings/',
-  path: '/settings/',
-  getParentRoute: () => rootRouteImport,
+const authAuthSigninIndexRoute = authAuthSigninIndexRouteImport.update({
+  id: '/signin/',
+  path: '/signin/',
+  getParentRoute: () => authAuthRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/settings': typeof SettingsIndexRoute
-  '/sign-in': typeof SignInIndexRoute
-  '/sign-up': typeof SignUpIndexRoute
-  '/welcome': typeof WelcomeIndexRoute
+  '/': typeof privatePrivateIndexRoute
+  '/signin': typeof authAuthSigninIndexRoute
+  '/signup': typeof authAuthSignupIndexRoute
+  '/notes': typeof privatePrivateNotesIndexRoute
+  '/settings': typeof privatePrivateSettingsIndexRoute
+  '/tasks': typeof privatePrivateTasksIndexRoute
+  '/welcome': typeof publicPublicWelcomeIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/settings': typeof SettingsIndexRoute
-  '/sign-in': typeof SignInIndexRoute
-  '/sign-up': typeof SignUpIndexRoute
-  '/welcome': typeof WelcomeIndexRoute
+  '/': typeof privatePrivateIndexRoute
+  '/signin': typeof authAuthSigninIndexRoute
+  '/signup': typeof authAuthSignupIndexRoute
+  '/notes': typeof privatePrivateNotesIndexRoute
+  '/settings': typeof privatePrivateSettingsIndexRoute
+  '/tasks': typeof privatePrivateTasksIndexRoute
+  '/welcome': typeof publicPublicWelcomeIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/settings/': typeof SettingsIndexRoute
-  '/sign-in/': typeof SignInIndexRoute
-  '/sign-up/': typeof SignUpIndexRoute
-  '/welcome/': typeof WelcomeIndexRoute
+  '/(auth)': typeof authRouteWithChildren
+  '/(auth)/_auth': typeof authAuthRouteWithChildren
+  '/(private)': typeof privateRouteWithChildren
+  '/(private)/_private': typeof privatePrivateRouteWithChildren
+  '/(public)': typeof publicRouteWithChildren
+  '/(public)/_public': typeof publicPublicRouteWithChildren
+  '/(private)/_private/': typeof privatePrivateIndexRoute
+  '/(auth)/_auth/signin/': typeof authAuthSigninIndexRoute
+  '/(auth)/_auth/signup/': typeof authAuthSignupIndexRoute
+  '/(private)/_private/notes/': typeof privatePrivateNotesIndexRoute
+  '/(private)/_private/settings/': typeof privatePrivateSettingsIndexRoute
+  '/(private)/_private/tasks/': typeof privatePrivateTasksIndexRoute
+  '/(public)/_public/welcome/': typeof publicPublicWelcomeIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/settings' | '/sign-in' | '/sign-up' | '/welcome'
+  fullPaths:
+    | '/'
+    | '/signin'
+    | '/signup'
+    | '/notes'
+    | '/settings'
+    | '/tasks'
+    | '/welcome'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/settings' | '/sign-in' | '/sign-up' | '/welcome'
-  id: '__root__' | '/' | '/settings/' | '/sign-in/' | '/sign-up/' | '/welcome/'
+  to:
+    | '/'
+    | '/signin'
+    | '/signup'
+    | '/notes'
+    | '/settings'
+    | '/tasks'
+    | '/welcome'
+  id:
+    | '__root__'
+    | '/(auth)'
+    | '/(auth)/_auth'
+    | '/(private)'
+    | '/(private)/_private'
+    | '/(public)'
+    | '/(public)/_public'
+    | '/(private)/_private/'
+    | '/(auth)/_auth/signin/'
+    | '/(auth)/_auth/signup/'
+    | '/(private)/_private/notes/'
+    | '/(private)/_private/settings/'
+    | '/(private)/_private/tasks/'
+    | '/(public)/_public/welcome/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  SettingsIndexRoute: typeof SettingsIndexRoute
-  SignInIndexRoute: typeof SignInIndexRoute
-  SignUpIndexRoute: typeof SignUpIndexRoute
-  WelcomeIndexRoute: typeof WelcomeIndexRoute
+  authRoute: typeof authRouteWithChildren
+  privateRoute: typeof privateRouteWithChildren
+  publicRoute: typeof publicRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/(public)': {
+      id: '/(public)'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+      preLoaderRoute: typeof publicRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/welcome/': {
-      id: '/welcome/'
+    '/(private)': {
+      id: '/(private)'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof privateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(auth)': {
+      id: '/(auth)'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof authRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(public)/_public': {
+      id: '/(public)/_public'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof publicPublicRouteImport
+      parentRoute: typeof publicRoute
+    }
+    '/(private)/_private': {
+      id: '/(private)/_private'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof privatePrivateRouteImport
+      parentRoute: typeof privateRoute
+    }
+    '/(auth)/_auth': {
+      id: '/(auth)/_auth'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof authAuthRouteImport
+      parentRoute: typeof authRoute
+    }
+    '/(private)/_private/': {
+      id: '/(private)/_private/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof privatePrivateIndexRouteImport
+      parentRoute: typeof privatePrivateRoute
+    }
+    '/(public)/_public/welcome/': {
+      id: '/(public)/_public/welcome/'
       path: '/welcome'
       fullPath: '/welcome'
-      preLoaderRoute: typeof WelcomeIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof publicPublicWelcomeIndexRouteImport
+      parentRoute: typeof publicPublicRoute
     }
-    '/sign-up/': {
-      id: '/sign-up/'
-      path: '/sign-up'
-      fullPath: '/sign-up'
-      preLoaderRoute: typeof SignUpIndexRouteImport
-      parentRoute: typeof rootRouteImport
+    '/(private)/_private/tasks/': {
+      id: '/(private)/_private/tasks/'
+      path: '/tasks'
+      fullPath: '/tasks'
+      preLoaderRoute: typeof privatePrivateTasksIndexRouteImport
+      parentRoute: typeof privatePrivateRoute
     }
-    '/sign-in/': {
-      id: '/sign-in/'
-      path: '/sign-in'
-      fullPath: '/sign-in'
-      preLoaderRoute: typeof SignInIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/settings/': {
-      id: '/settings/'
+    '/(private)/_private/settings/': {
+      id: '/(private)/_private/settings/'
       path: '/settings'
       fullPath: '/settings'
-      preLoaderRoute: typeof SettingsIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof privatePrivateSettingsIndexRouteImport
+      parentRoute: typeof privatePrivateRoute
+    }
+    '/(private)/_private/notes/': {
+      id: '/(private)/_private/notes/'
+      path: '/notes'
+      fullPath: '/notes'
+      preLoaderRoute: typeof privatePrivateNotesIndexRouteImport
+      parentRoute: typeof privatePrivateRoute
+    }
+    '/(auth)/_auth/signup/': {
+      id: '/(auth)/_auth/signup/'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof authAuthSignupIndexRouteImport
+      parentRoute: typeof authAuthRoute
+    }
+    '/(auth)/_auth/signin/': {
+      id: '/(auth)/_auth/signin/'
+      path: '/signin'
+      fullPath: '/signin'
+      preLoaderRoute: typeof authAuthSigninIndexRouteImport
+      parentRoute: typeof authAuthRoute
     }
   }
 }
 
+interface authAuthRouteChildren {
+  authAuthSigninIndexRoute: typeof authAuthSigninIndexRoute
+  authAuthSignupIndexRoute: typeof authAuthSignupIndexRoute
+}
+
+const authAuthRouteChildren: authAuthRouteChildren = {
+  authAuthSigninIndexRoute: authAuthSigninIndexRoute,
+  authAuthSignupIndexRoute: authAuthSignupIndexRoute,
+}
+
+const authAuthRouteWithChildren = authAuthRoute._addFileChildren(
+  authAuthRouteChildren,
+)
+
+interface authRouteChildren {
+  authAuthRoute: typeof authAuthRouteWithChildren
+}
+
+const authRouteChildren: authRouteChildren = {
+  authAuthRoute: authAuthRouteWithChildren,
+}
+
+const authRouteWithChildren = authRoute._addFileChildren(authRouteChildren)
+
+interface privatePrivateRouteChildren {
+  privatePrivateIndexRoute: typeof privatePrivateIndexRoute
+  privatePrivateNotesIndexRoute: typeof privatePrivateNotesIndexRoute
+  privatePrivateSettingsIndexRoute: typeof privatePrivateSettingsIndexRoute
+  privatePrivateTasksIndexRoute: typeof privatePrivateTasksIndexRoute
+}
+
+const privatePrivateRouteChildren: privatePrivateRouteChildren = {
+  privatePrivateIndexRoute: privatePrivateIndexRoute,
+  privatePrivateNotesIndexRoute: privatePrivateNotesIndexRoute,
+  privatePrivateSettingsIndexRoute: privatePrivateSettingsIndexRoute,
+  privatePrivateTasksIndexRoute: privatePrivateTasksIndexRoute,
+}
+
+const privatePrivateRouteWithChildren = privatePrivateRoute._addFileChildren(
+  privatePrivateRouteChildren,
+)
+
+interface privateRouteChildren {
+  privatePrivateRoute: typeof privatePrivateRouteWithChildren
+}
+
+const privateRouteChildren: privateRouteChildren = {
+  privatePrivateRoute: privatePrivateRouteWithChildren,
+}
+
+const privateRouteWithChildren =
+  privateRoute._addFileChildren(privateRouteChildren)
+
+interface publicPublicRouteChildren {
+  publicPublicWelcomeIndexRoute: typeof publicPublicWelcomeIndexRoute
+}
+
+const publicPublicRouteChildren: publicPublicRouteChildren = {
+  publicPublicWelcomeIndexRoute: publicPublicWelcomeIndexRoute,
+}
+
+const publicPublicRouteWithChildren = publicPublicRoute._addFileChildren(
+  publicPublicRouteChildren,
+)
+
+interface publicRouteChildren {
+  publicPublicRoute: typeof publicPublicRouteWithChildren
+}
+
+const publicRouteChildren: publicRouteChildren = {
+  publicPublicRoute: publicPublicRouteWithChildren,
+}
+
+const publicRouteWithChildren =
+  publicRoute._addFileChildren(publicRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  SettingsIndexRoute: SettingsIndexRoute,
-  SignInIndexRoute: SignInIndexRoute,
-  SignUpIndexRoute: SignUpIndexRoute,
-  WelcomeIndexRoute: WelcomeIndexRoute,
+  authRoute: authRouteWithChildren,
+  privateRoute: privateRouteWithChildren,
+  publicRoute: publicRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
