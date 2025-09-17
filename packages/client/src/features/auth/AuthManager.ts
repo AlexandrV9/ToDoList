@@ -7,14 +7,16 @@ class AuthManager {
     try {
       authActions.setStatus("PENDING");
 
-      const accessToken = tokenManager.getAccessToken();
+      let accessToken = tokenManager.getAccessToken();
 
       if (!accessToken) {
-        authActions.setStatus("UNAUTHENTICATED");
-        return false;
+        const { data } = await authService.refresh();
+
+        accessToken = data.data!.accessToken;
+        tokenManager.setAccessToken(accessToken);
       }
 
-      const response = await authService.checkIsAuth(accessToken);
+      const response = await authService.checkIsAuth();
       const { data, success } = response.data;
 
       if (success && data) {

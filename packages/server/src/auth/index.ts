@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
-import z, { success } from "zod";
+import z from "zod";
 import { deleteCookie, getCookie, setCookie } from "hono/cookie";
 import { sign, verify, decode } from "hono/jwt";
 import { JwtTokenExpired, JwtTokenInvalid } from "hono/utils/jwt/types";
@@ -36,24 +36,28 @@ auth.get("/", (c) => {
   let accessToken: string | undefined | null = c.req.header("Authorization");
 
   if (!accessToken) {
-    return c.json({ message: "Token not provided", success: false }, 404);
+    return c.json({ message: "Token not provided", success: false }, 401);
   }
 
   accessToken = extractToken(accessToken);
 
   if (!accessToken) {
-    return c.json({ message: "Acccess token invalid", success: false }, 404);
+    return c.json({ message: "Acccess token invalid", success: false }, 401);
   }
 
-  const { payload } = decodeToken(accessToken);
+  try {
+    const { payload } = decodeToken(accessToken);
 
-  const user = db.users.find((user) => user.id === payload.id);
+    const user = db.users.find((user) => user.id === payload.id);
 
-  if (!user) {
-    return c.json({ message: "User not found", success: false }, 404);
+    if (!user) {
+      return c.json({ message: "User not found", success: false }, 404);
+    }
+
+    return c.json({ data: { user }, success: true });
+  } catch {
+    return c.json({ message: "Acccess token invalid", success: false }, 401);
   }
-
-  return c.json({ data: { user }, success: true });
 });
 
 auth.post(
@@ -126,7 +130,7 @@ auth.get("/refresh", async (c) => {
     const payload = (await verify(refreshToken, tokens.refresh.secret)) as User;
     const accessToken = await generateAccessToken(payload);
 
-    return c.json({ accessToken });
+    return c.json({ data: { accessToken }, success: true });
   } catch (error) {
     switch (true) {
       case error instanceof JwtTokenExpired:

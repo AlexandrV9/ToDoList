@@ -1,40 +1,38 @@
-import axios from "axios";
 import type { AuthUserDTO } from "./types";
 import type { RequestResponse } from "../types";
+import axios from "axios";
+import { axiosInstance } from "../../../config/axios";
 
 const apiEndpoint = import.meta.env.VITE_API_ENDPOINT;
 
 class AuthService {
   signInByLogin(data: { login: string; password: string }) {
-    return axios.post<RequestResponse<{ user: AuthUserDTO; accessToken: string }>>(
-      `${apiEndpoint}/auth/sign-in`,
-      data
-    );
+    return axiosInstance.post<
+      RequestResponse<{ user: AuthUserDTO; accessToken: string }>
+    >(`${apiEndpoint}/auth/sign-in`, data);
   }
 
   signUp(data: { login: string; name?: string; password: string }) {
-    return axios.post<RequestResponse>(`${apiEndpoint}/auth/sign-up`, data);
+    return axiosInstance.post<RequestResponse>(`${apiEndpoint}/auth/sign-up`, data);
   }
 
-  checkIsAuth(accessToken: string) {
-    return axios.get<RequestResponse<{ user: AuthUserDTO }>>(
-      `${apiEndpoint}/auth`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
+  checkIsAuth() {
+    return axiosInstance.get<RequestResponse<{ user: AuthUserDTO }>>(
+      `${apiEndpoint}/auth`
     );
   }
 
   refresh() {
-    return axios.get<RequestResponse<{ token: string }>>(
-      `${apiEndpoint}/auth/refresh`
+    return axios.get<RequestResponse<{ accessToken: string }>>(
+      `${apiEndpoint}/auth/refresh`,
+      {
+        withCredentials: true,
+      }
     );
   }
 
   signOut() {
-    return axios.post<RequestResponse>(`${apiEndpoint}/auth/sign-out`);
+    return axiosInstance.post<RequestResponse>(`${apiEndpoint}/auth/sign-out`);
   }
 }
 
