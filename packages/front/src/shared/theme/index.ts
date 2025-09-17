@@ -1,5 +1,5 @@
 export * from "./ThemeProvider";
-export * from "./hooks/useTheme";
-export * from "./constants";
+export * from "./useTheme";
 export * from "./types";
 export * from "./utils";
+export * from "./constants";

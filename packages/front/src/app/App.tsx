@@ -1,29 +1,25 @@
-import { createRouter, RouterProvider } from "@tanstack/react-router";
+import { RouterProvider } from "@tanstack/react-router";
 import { ChakraProvider } from "@chakra-ui/react";
+
+import { router } from "./router";
 
 import "~/shared/config/i18n";
 import "~/shared/styles/variable.css";
-import { ThemeProvider } from "~/shared/theme";
-import { chakraConfig } from "~/shared/config";
-import { routeTree } from "~/routeTree.gen";
-
 import "./styles/normalize.css";
 import "./styles/index.css";
 
-const router = createRouter({ routeTree });
-
-declare module "@tanstack/react-router" {
-  interface Register {
-    router: typeof router;
-  }
-}
+import { ThemeProvider } from "~/shared/theme";
+import { chakraConfig } from "~/shared/config";
+import { TanstackProvider } from "./TanstackProvider";
 
 export const App = () => {
   return (
-    <ThemeProvider>
-      <ChakraProvider value={chakraConfig}>
-        <RouterProvider router={router} />
-      </ChakraProvider>
-    </ThemeProvider>
+    <TanstackProvider>
+      <ThemeProvider>
+        <ChakraProvider value={chakraConfig}>
+          <RouterProvider router={router} />
+        </ChakraProvider>
+      </ThemeProvider>
+    </TanstackProvider>
   );
 };
