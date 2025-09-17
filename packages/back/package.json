@@ -1,27 +1,23 @@
 {
   "name": "@to-do-list/back",
-  "version": "0.0.0",
-  "description": "",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
-    "dev": "ts-node-dev --respawn --watch src --transpile-only src/index.ts",
+    "dev": "tsx watch src/index.ts",
     "build": "tsc",
-    "start": "node ./index.js"
+    "start": "node dist/index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "packageManager": "pnpm@10.14.0",
   "dependencies": {
+    "@hono/node-server": "^1.19.3",
+    "@hono/zod-validator": "^0.7.3",
+    "bcrypt": "^6.0.0",
     "dotenv": "^17.2.2",
-    "express": "^5.1.0"
+    "hono": "^4.9.7",
+    "zod": "^4.1.5"
   },
   "devDependencies": {
-    "@types/express": "^5.0.3",
-    "@types/node": "^24.3.0",
-    "consola": "^3.4.2",
-    "ts-node": "^10.9.2",
-    "ts-node-dev": "^2.0.0",
-    "typescript": "~5.8.3"
+    "@types/bcrypt": "^6.0.0",
+    "@types/node": "^20.11.17",
+    "tsx": "^4.7.1",
+    "typescript": "^5.8.3"
   }
 }

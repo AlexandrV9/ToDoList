@@ -37,7 +37,7 @@ export function AuthLayout() {
         </Box>
       </PageLayout.TopContainer>
       <PageLayout.MainContainer as="main">
-        <Box mt="3rem" width="full">
+        <Box mt="3rem" width="full" display="flex" justifyContent="center">
           <Outlet />
         </Box>
       </PageLayout.MainContainer>

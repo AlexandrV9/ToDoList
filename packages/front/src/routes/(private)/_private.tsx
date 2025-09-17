@@ -14,13 +14,18 @@ export function PrivateLayout() {
         display="flex"
         justifyContent="center"
         alignItems="center"
+        borderBottom="1px solid"
+        borderColor="border.emphasized"
       >
         <Header />
       </PageLayout.TopContainer>
-      <PageLayout.MainContainer px="1rem">
+      <PageLayout.MainContainer p="1rem">
         <Outlet />
       </PageLayout.MainContainer>
-      <PageLayout.BottomContainer>
+      <PageLayout.BottomContainer
+        borderTop="1px solid"
+        borderColor="border.emphasized"
+      >
         <NavBar />
       </PageLayout.BottomContainer>
     </PageLayout>

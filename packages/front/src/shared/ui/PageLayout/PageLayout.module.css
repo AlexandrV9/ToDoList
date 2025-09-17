@@ -3,6 +3,11 @@
   flex-direction: column;
   height: 100vh;
   overflow: hidden;
+  width: 100%;
+  min-width: 320px;
+
+  max-height: 1100px; /* TODO убрать после адаптива */
+  max-width: 800px; /* TODO убрать после адаптива */
 
   @supports (height: 100dvh) {
     height: 100dvh;

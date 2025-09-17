@@ -13,6 +13,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1 {
-  margin: 0;
+/* TODO убрать после адаптива */
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
