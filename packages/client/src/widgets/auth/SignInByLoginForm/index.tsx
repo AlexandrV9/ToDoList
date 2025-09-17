@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
-import { useTranslation } from "~/shared/hooks";
-import axios from "axios";
+import { authManager } from "~/features/auth";
+import { useNavigate, useTranslation } from "~/shared/hooks";
 
 import {
   Button,
@@ -24,6 +24,7 @@ type FormSchema = z.infer<typeof formSchema>;
 
 export const SignInByLoginForm = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -32,34 +33,15 @@ export const SignInByLoginForm = () => {
   } = useForm<FormSchema>({ resolver: zodResolver(formSchema) });
 
   const submitHandler = handleSubmit(async (data) => {
-    const response = await axios(`http://localhost:9000/auth/sign-in`, {
-      method: "POST",
-      data,
-      withCredentials: true,
-    });
+    try {
+      const response = await authManager.signInByLogin(data);
 
-    // const response2 = await axios(`http://localhost:9000/auth`, {
-    //   method: "GET",
-    //   headers: {
-    //     Authorization: `Bearer ${response.data.accessToken}`,
-    //   },
-    //   withCredentials: true,
-    // });
-
-    // const response3 = await axios(`http://localhost:9000/auth/sign-out`, {
-    //   method: "POST",
-    //   withCredentials: true,
-    // });
-
-    const response4 = await axios(`http://localhost:9000/auth/refresh`, {
-      method: "GET",
-      withCredentials: true,
-    });
-
-    console.log("response1", response.data.accessToken === response4.data.accessToken);
-    // console.log("response2", response2);
-    // console.log("response2", response3);
-    // console.log("response4", response4.data);
+      if (response.data.success) {
+        navigate({ to: "/" });
+      }
+    } catch {
+      console.log("error");
+    }
   });
 
   return (

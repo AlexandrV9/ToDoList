@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
+import { authManager } from "~/features/auth";
 import { useTranslation } from "~/shared/hooks";
 import {
   Box,
@@ -13,7 +14,7 @@ import {
 } from "~/shared/ui";
 
 const formSchema = z.object({
-  firstName: z.string(),
+  name: z.string(),
   login: z.string(),
   password: z
     .string()
@@ -29,7 +30,9 @@ export const SignUpForm = () => {
     formState: { errors },
   } = useForm<FormSchema>({ resolver: zodResolver(formSchema) });
 
-  const submitHandler = handleSubmit((data) => console.log(data));
+  const submitHandler = handleSubmit(async (data) => {
+    authManager.signUp(data);
+  });
 
   const { t } = useTranslation();
 
@@ -59,7 +62,7 @@ export const SignUpForm = () => {
           truncate
           color="fg"
           placeholder={t("pages.signIn.form.firstName.placeholder")}
-          {...register("firstName")}
+          {...register("name")}
         />
         <Field.ErrorText color="fg.error">
           {errors.login?.message}

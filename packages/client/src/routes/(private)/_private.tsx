@@ -1,8 +1,40 @@
-import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { authManager } from "~/features/auth";
 import { PageLayout } from "~/shared/ui";
 import { Header, NavBar } from "~/widgets";
 
 export const Route = createFileRoute("/(private)/_private")({
+  beforeLoad: async ({ context, location }) => {
+    const authStatus = context.auth.status;
+
+    if (authStatus === "IDLE") {
+      try {
+        const isAuthenticated = await authManager.checkAuth();
+
+        if (!isAuthenticated) {
+          throw new Error();
+        }
+
+        return;
+      } catch {
+        throw redirect({
+          to: "/signin",
+          search: { redirect: location.href },
+        });
+      }
+    }
+
+    if (authStatus === "UNAUTHENTICATED") {
+      throw redirect({
+        to: "/signin",
+        search: { redirect: location.href },
+      });
+    }
+
+    if (authStatus === "PENDING") {
+      console.log("Auth check in progress...");
+    }
+  },
   component: PrivateLayout,
 });
 

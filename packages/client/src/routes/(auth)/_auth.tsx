@@ -1,8 +1,35 @@
-import { createFileRoute, Outlet, useNavigate } from "@tanstack/react-router";
+import {
+  createFileRoute,
+  Outlet,
+  redirect,
+  useNavigate,
+} from "@tanstack/react-router";
+import z from "zod";
 import { LangSwitcher, ThemeSwitcher } from "~/features";
+import { authManager } from "~/features/auth";
 import { BackButton, Box, Flex, PageLayout } from "~/shared/ui";
 
 export const Route = createFileRoute("/(auth)/_auth")({
+  validateSearch: z.object({
+    redirect: z.string().optional().catch(""),
+  }),
+  beforeLoad: async ({ context, search }) => {
+    const authStatus = context.auth.status;
+
+    if (authStatus === "IDLE") {
+      const isAuthenticated = await authManager.checkAuth();
+
+      if (isAuthenticated) {
+        throw redirect({ to: search.redirect || "/" });
+      }
+
+      return;
+    }
+
+    if (authStatus === "AUTHENTICATED") {
+      throw redirect({ to: search.redirect || "/" });
+    }
+  },
   component: AuthLayout,
 });
 

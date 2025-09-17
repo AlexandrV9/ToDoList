@@ -1,2 +1,3 @@
-export * from "./hooks/useAuth";
 export * from "./types";
+export * from "./useAuthStore";
+export * from "./AuthManager";
