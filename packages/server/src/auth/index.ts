@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
-import z from "zod";
+import z, { success } from "zod";
 import { deleteCookie, getCookie, setCookie } from "hono/cookie";
 import { sign, verify, decode } from "hono/jwt";
 import { JwtTokenExpired, JwtTokenInvalid } from "hono/utils/jwt/types";
@@ -117,6 +117,29 @@ auth.post(
 
 auth.post("/sign-up", (c) => {
   return c.json({ message: "success" });
+});
+
+auth.get("/check-refresh", async (c) => {
+  const refreshToken = getCookie(c, tokens.refresh.cookie);
+
+  if (!refreshToken) {
+    return c.json(
+      {
+        data: {
+          hasRefreshToken: false,
+        },
+        success: true,
+      },
+      200
+    );
+  }
+
+  return c.json({
+    data: {
+      hasRefreshToken: true,
+    },
+    success: true,
+  });
 });
 
 auth.get("/refresh", async (c) => {

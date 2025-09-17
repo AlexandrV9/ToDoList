@@ -13,12 +13,28 @@ class AuthService {
   }
 
   signUp(data: { login: string; name?: string; password: string }) {
-    return axiosInstance.post<RequestResponse>(`${apiEndpoint}/auth/sign-up`, data);
+    return axiosInstance.post<RequestResponse>(
+      `${apiEndpoint}/auth/sign-up`,
+      data
+    );
   }
 
   checkIsAuth() {
     return axiosInstance.get<RequestResponse<{ user: AuthUserDTO }>>(
       `${apiEndpoint}/auth`
+    );
+  }
+
+  signOut() {
+    return axiosInstance.post<RequestResponse>(`${apiEndpoint}/auth/sign-out`);
+  }
+
+  checkRefresh() {
+    return axios.get<RequestResponse<{ hasRefreshToken: boolean }>>(
+      `${apiEndpoint}/auth/check-refresh`,
+      {
+        withCredentials: true,
+      }
     );
   }
 
@@ -29,10 +45,6 @@ class AuthService {
         withCredentials: true,
       }
     );
-  }
-
-  signOut() {
-    return axiosInstance.post<RequestResponse>(`${apiEndpoint}/auth/sign-out`);
   }
 }
 

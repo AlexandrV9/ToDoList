@@ -7,13 +7,27 @@ class AuthManager {
     try {
       authActions.setStatus("PENDING");
 
+      const refreshCheckResponse = await authService.checkRefresh();
+      const hasRefreshToken = refreshCheckResponse.data.data?.hasRefreshToken;
+
+      if (!hasRefreshToken) {
+        authActions.setStatus("UNAUTHENTICATED");
+        tokenManager.removeAccessToken();
+        return false;
+      }
+
       let accessToken = tokenManager.getAccessToken();
 
       if (!accessToken) {
-        const { data } = await authService.refresh();
-
-        accessToken = data.data!.accessToken;
-        tokenManager.setAccessToken(accessToken);
+        try {
+          const refreshResponse = await authService.refresh();
+          accessToken = refreshResponse.data.data!.accessToken;
+          tokenManager.setAccessToken(accessToken);
+        } catch {
+          tokenManager.removeAccessToken();
+          authActions.setStatus("UNAUTHENTICATED");
+          return false;
+        }
       }
 
       const response = await authService.checkIsAuth();
@@ -84,7 +98,7 @@ class AuthManager {
         throw new Error(message || "request error");
       }
 
-      tokenManager.removeTokens();
+      tokenManager.removeAccessToken();
       authActions.setStatus("UNAUTHENTICATED");
     } catch (error) {
       console.log(error);

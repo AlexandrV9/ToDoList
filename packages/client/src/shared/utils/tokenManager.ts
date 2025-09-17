@@ -7,7 +7,7 @@ export const tokenManager = {
   getAccessToken: () => {
     return localStorage.getItem(ACCESS_TOKEN_KEY);
   },
-  removeTokens: () => {
-    localStorage.remove(ACCESS_TOKEN_KEY);
+  removeAccessToken: () => {
+    localStorage.removeItem(ACCESS_TOKEN_KEY);
   },
 };
