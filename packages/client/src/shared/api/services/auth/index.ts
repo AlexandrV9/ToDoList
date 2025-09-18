@@ -20,23 +20,25 @@ class AuthService {
   }
 
   checkIsAuth() {
-    return axiosInstance.get<RequestResponse<{ user: AuthUserDTO }>>(
-      `${apiEndpoint}/auth`
-    );
+    return axios.get<
+      RequestResponse<{ user: AuthUserDTO; accessToken?: string }>
+    >(`${apiEndpoint}/auth`, {
+      withCredentials: true,
+    });
   }
 
   signOut() {
     return axiosInstance.post<RequestResponse>(`${apiEndpoint}/auth/sign-out`);
   }
 
-  checkRefresh() {
-    return axios.get<RequestResponse<{ hasRefreshToken: boolean }>>(
-      `${apiEndpoint}/auth/check-refresh`,
-      {
-        withCredentials: true,
-      }
-    );
-  }
+  // checkRefresh() {
+  //   return axios.get<RequestResponse<{ hasRefreshToken: boolean }>>(
+  //     `${apiEndpoint}/auth/check-refresh`,
+  //     {
+  //       withCredentials: true,
+  //     }
+  //   );
+  // }
 
   refresh() {
     return axios.get<RequestResponse<{ accessToken: string }>>(

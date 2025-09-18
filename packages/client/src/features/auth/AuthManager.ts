@@ -7,41 +7,27 @@ class AuthManager {
     try {
       authActions.setStatus("PENDING");
 
-      const refreshCheckResponse = await authService.checkRefresh();
-      const hasRefreshToken = refreshCheckResponse.data.data?.hasRefreshToken;
-
-      if (!hasRefreshToken) {
-        authActions.setStatus("UNAUTHENTICATED");
-        tokenManager.removeAccessToken();
-        return false;
-      }
-
-      let accessToken = tokenManager.getAccessToken();
-
-      if (!accessToken) {
-        try {
-          const refreshResponse = await authService.refresh();
-          accessToken = refreshResponse.data.data!.accessToken;
-          tokenManager.setAccessToken(accessToken);
-        } catch {
-          tokenManager.removeAccessToken();
-          authActions.setStatus("UNAUTHENTICATED");
-          return false;
-        }
-      }
-
       const response = await authService.checkIsAuth();
-      const { data, success } = response.data;
+      const { data, success, message } = response.data;
 
-      if (success && data) {
-        authActions.setUser(data.user);
-        authActions.setStatus("AUTHENTICATED");
-        return true;
+      if (!success) {
+        throw new Error(message || "Authentication failed");
       }
 
-      throw new Error("Authentication failed");
+      if (data?.accessToken) {
+        tokenManager.setAccessToken(data.accessToken);
+      }
+
+      if (data?.user) {
+        authActions.setUser(data.user);
+      }
+
+      authActions.setStatus("AUTHENTICATED");
+      return true;
     } catch (error) {
       console.log(error);
+
+      tokenManager.removeAccessToken();
 
       authActions.setStatus("UNAUTHENTICATED");
       return false;
@@ -76,7 +62,7 @@ class AuthManager {
       const { data, message, success } = response.data;
 
       if (!success || !data) {
-        throw new Error(message || "request error");
+        throw new Error(message || "Request failed");
       }
 
       return data;
@@ -95,7 +81,7 @@ class AuthManager {
       const { data, message, success } = response.data;
 
       if (!success || !data) {
-        throw new Error(message || "request error");
+        throw new Error(message || "Request failed");
       }
 
       tokenManager.removeAccessToken();

@@ -1,11 +1,15 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
-import { authManager } from "~/features/auth";
+import { authManager, useAuthStore } from "~/features/auth";
 import { PageLayout } from "~/shared/ui";
 import { Header, NavBar } from "~/widgets";
 
 export const Route = createFileRoute("/(private)/_private")({
-  beforeLoad: async ({ context, location }) => {
-    const authStatus = context.auth.status;
+  beforeLoad: async ({ location }) => {
+    const authStatus = useAuthStore.getState().status;
+
+    if (authStatus === "AUTHENTICATED") {
+      return;
+    }
 
     if (authStatus === "IDLE") {
       try {
