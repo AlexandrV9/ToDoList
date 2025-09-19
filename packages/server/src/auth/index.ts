@@ -73,7 +73,13 @@ auth.get("/", async (c) => {
   return c.json({
     ...refreshTokenResult,
     data: {
-      user: refreshTokenResult.data.user,
+      user: {
+        id: refreshTokenResult.data.user!.id,
+        login: refreshTokenResult.data.user!.login,
+        name: refreshTokenResult.data.user!.name,
+        avatar: refreshTokenResult.data.user?.avatar,
+        email: refreshTokenResult.data.user?.email,
+      },
       accessToken: newAccessToken,
     },
   });

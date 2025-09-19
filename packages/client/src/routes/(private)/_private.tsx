@@ -39,6 +39,7 @@ export const Route = createFileRoute("/(private)/_private")({
       console.log("Auth check in progress...");
     }
   },
+  loader: () => <div>ddd</div>,
   component: PrivateLayout,
 });
 
@@ -46,7 +47,6 @@ export function PrivateLayout() {
   return (
     <PageLayout>
       <PageLayout.TopContainer
-        px="1rem"
         display="flex"
         justifyContent="center"
         alignItems="center"
@@ -55,7 +55,7 @@ export function PrivateLayout() {
       >
         <Header />
       </PageLayout.TopContainer>
-      <PageLayout.MainContainer p="1rem">
+      <PageLayout.MainContainer>
         <Outlet />
       </PageLayout.MainContainer>
       <PageLayout.BottomContainer

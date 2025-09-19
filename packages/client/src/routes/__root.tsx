@@ -40,12 +40,15 @@ function NofFoundPage() {
   };
 
   return (
-    <PageLayout px="1rem">
+    <PageLayout>
       <PageLayout.TopContainer
         as="header"
         display="flex"
         justifyContent="space-between"
         alignItems="center"
+        borderBottom="1px solid"
+        borderColor="border.emphasized"
+        px="1rem"
       >
         <Box
           width="full"
@@ -60,7 +63,9 @@ function NofFoundPage() {
           </Flex>
         </Box>
       </PageLayout.TopContainer>
-      <PageLayout.MainContainer as="main">NotFound</PageLayout.MainContainer>
+      <PageLayout.MainContainer as="main" p="1rem">
+        NotFound
+      </PageLayout.MainContainer>
     </PageLayout>
   );
 }

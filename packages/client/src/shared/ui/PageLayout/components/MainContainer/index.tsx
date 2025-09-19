@@ -10,6 +10,7 @@ export const MainContainer = ({ ...props }: MainContainerProps) => {
       justifyContent="center"
       alignItems="start"
       flexGrow={1}
+      overflow="auto"
       {...props}
     />
   );

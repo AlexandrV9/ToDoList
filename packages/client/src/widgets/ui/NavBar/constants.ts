@@ -3,7 +3,7 @@ import {
   CheckCircleIcon,
   HomeIcon,
   MoreIcon,
-  SettingsIcon,
+  UserIcon,
 } from "~/shared/ui";
 import type { NavItemProps } from "./types";
 
@@ -27,10 +27,10 @@ export const navItems: NavItemProps[] = [
     icon: BookmarkIcon,
   },
   {
-    id: "nav_item_settings",
-    title: "Settings",
-    href: "/settings",
-    icon: SettingsIcon,
+    id: "nav_item_account",
+    title: "Profile",
+    href: "/profile",
+    icon: UserIcon,
   },
   {
     id: "nav_item_more",

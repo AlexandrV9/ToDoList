@@ -1,5 +1,6 @@
 import { LangSwitcher, ThemeSwitcher } from "~/features";
-import { Avatar, Box, Flex } from "~/shared/ui";
+import { AuthUserAvatar } from "~/features/auth";
+import { Box, Flex } from "~/shared/ui";
 
 export type HeaderProps = {};
 
@@ -12,7 +13,7 @@ export const Header = () => {
       justifyContent="space-between"
       alignItems="center"
     >
-      <Avatar.Root />
+      <AuthUserAvatar />
       <Flex justifyContent="end" gap={2}>
         <LangSwitcher />
         <ThemeSwitcher />

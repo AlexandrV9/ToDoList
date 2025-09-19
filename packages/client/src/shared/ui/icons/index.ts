@@ -8,5 +8,6 @@ export * from "./Bookmark";
 export * from "./Home";
 export * from "./ArrowLeft";
 export * from "./More";
+export * from "./User";
 
 export * from "./withIconProps";

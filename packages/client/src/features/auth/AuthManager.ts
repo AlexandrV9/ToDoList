@@ -45,9 +45,9 @@ class AuthManager {
         throw new Error(message || "Request failed");
       }
 
-      tokenManager.setAccessToken(data.accessToken);
+      authActions.setUser(data.user);
       authActions.setStatus("AUTHENTICATED");
-
+      tokenManager.setAccessToken(data.accessToken);
       return response;
     } catch (error) {
       console.log(error);
