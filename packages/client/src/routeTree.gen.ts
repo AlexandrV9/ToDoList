@@ -19,8 +19,10 @@ import { Route as publicPublicWelcomeIndexRouteImport } from './routes/(public)/
 import { Route as privatePrivateTasksIndexRouteImport } from './routes/(private)/_private.tasks/index'
 import { Route as privatePrivateSettingsIndexRouteImport } from './routes/(private)/_private.settings/index'
 import { Route as privatePrivateNotesIndexRouteImport } from './routes/(private)/_private.notes/index'
+import { Route as privatePrivateMoreIndexRouteImport } from './routes/(private)/_private.more/index'
 import { Route as authAuthSignupIndexRouteImport } from './routes/(auth)/_auth.signup/index'
 import { Route as authAuthSigninIndexRouteImport } from './routes/(auth)/_auth.signin/index'
+import { Route as privatePrivateTasksTaskIdRouteImport } from './routes/(private)/_private.tasks/$taskId'
 
 const publicRouteImport = createFileRoute('/(public)')()
 const privateRouteImport = createFileRoute('/(private)')()
@@ -79,6 +81,11 @@ const privatePrivateNotesIndexRoute =
     path: '/notes/',
     getParentRoute: () => privatePrivateRoute,
   } as any)
+const privatePrivateMoreIndexRoute = privatePrivateMoreIndexRouteImport.update({
+  id: '/more/',
+  path: '/more/',
+  getParentRoute: () => privatePrivateRoute,
+} as any)
 const authAuthSignupIndexRoute = authAuthSignupIndexRouteImport.update({
   id: '/signup/',
   path: '/signup/',
@@ -89,11 +96,19 @@ const authAuthSigninIndexRoute = authAuthSigninIndexRouteImport.update({
   path: '/signin/',
   getParentRoute: () => authAuthRoute,
 } as any)
+const privatePrivateTasksTaskIdRoute =
+  privatePrivateTasksTaskIdRouteImport.update({
+    id: '/tasks/$taskId',
+    path: '/tasks/$taskId',
+    getParentRoute: () => privatePrivateRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof privatePrivateIndexRoute
+  '/tasks/$taskId': typeof privatePrivateTasksTaskIdRoute
   '/signin': typeof authAuthSigninIndexRoute
   '/signup': typeof authAuthSignupIndexRoute
+  '/more': typeof privatePrivateMoreIndexRoute
   '/notes': typeof privatePrivateNotesIndexRoute
   '/settings': typeof privatePrivateSettingsIndexRoute
   '/tasks': typeof privatePrivateTasksIndexRoute
@@ -101,8 +116,10 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof privatePrivateIndexRoute
+  '/tasks/$taskId': typeof privatePrivateTasksTaskIdRoute
   '/signin': typeof authAuthSigninIndexRoute
   '/signup': typeof authAuthSignupIndexRoute
+  '/more': typeof privatePrivateMoreIndexRoute
   '/notes': typeof privatePrivateNotesIndexRoute
   '/settings': typeof privatePrivateSettingsIndexRoute
   '/tasks': typeof privatePrivateTasksIndexRoute
@@ -117,8 +134,10 @@ export interface FileRoutesById {
   '/(public)': typeof publicRouteWithChildren
   '/(public)/_public': typeof publicPublicRouteWithChildren
   '/(private)/_private/': typeof privatePrivateIndexRoute
+  '/(private)/_private/tasks/$taskId': typeof privatePrivateTasksTaskIdRoute
   '/(auth)/_auth/signin/': typeof authAuthSigninIndexRoute
   '/(auth)/_auth/signup/': typeof authAuthSignupIndexRoute
+  '/(private)/_private/more/': typeof privatePrivateMoreIndexRoute
   '/(private)/_private/notes/': typeof privatePrivateNotesIndexRoute
   '/(private)/_private/settings/': typeof privatePrivateSettingsIndexRoute
   '/(private)/_private/tasks/': typeof privatePrivateTasksIndexRoute
@@ -128,8 +147,10 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/tasks/$taskId'
     | '/signin'
     | '/signup'
+    | '/more'
     | '/notes'
     | '/settings'
     | '/tasks'
@@ -137,8 +158,10 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/tasks/$taskId'
     | '/signin'
     | '/signup'
+    | '/more'
     | '/notes'
     | '/settings'
     | '/tasks'
@@ -152,8 +175,10 @@ export interface FileRouteTypes {
     | '/(public)'
     | '/(public)/_public'
     | '/(private)/_private/'
+    | '/(private)/_private/tasks/$taskId'
     | '/(auth)/_auth/signin/'
     | '/(auth)/_auth/signup/'
+    | '/(private)/_private/more/'
     | '/(private)/_private/notes/'
     | '/(private)/_private/settings/'
     | '/(private)/_private/tasks/'
@@ -245,6 +270,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof privatePrivateNotesIndexRouteImport
       parentRoute: typeof privatePrivateRoute
     }
+    '/(private)/_private/more/': {
+      id: '/(private)/_private/more/'
+      path: '/more'
+      fullPath: '/more'
+      preLoaderRoute: typeof privatePrivateMoreIndexRouteImport
+      parentRoute: typeof privatePrivateRoute
+    }
     '/(auth)/_auth/signup/': {
       id: '/(auth)/_auth/signup/'
       path: '/signup'
@@ -258,6 +290,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/signin'
       preLoaderRoute: typeof authAuthSigninIndexRouteImport
       parentRoute: typeof authAuthRoute
+    }
+    '/(private)/_private/tasks/$taskId': {
+      id: '/(private)/_private/tasks/$taskId'
+      path: '/tasks/$taskId'
+      fullPath: '/tasks/$taskId'
+      preLoaderRoute: typeof privatePrivateTasksTaskIdRouteImport
+      parentRoute: typeof privatePrivateRoute
     }
   }
 }
@@ -288,6 +327,8 @@ const authRouteWithChildren = authRoute._addFileChildren(authRouteChildren)
 
 interface privatePrivateRouteChildren {
   privatePrivateIndexRoute: typeof privatePrivateIndexRoute
+  privatePrivateTasksTaskIdRoute: typeof privatePrivateTasksTaskIdRoute
+  privatePrivateMoreIndexRoute: typeof privatePrivateMoreIndexRoute
   privatePrivateNotesIndexRoute: typeof privatePrivateNotesIndexRoute
   privatePrivateSettingsIndexRoute: typeof privatePrivateSettingsIndexRoute
   privatePrivateTasksIndexRoute: typeof privatePrivateTasksIndexRoute
@@ -295,6 +336,8 @@ interface privatePrivateRouteChildren {
 
 const privatePrivateRouteChildren: privatePrivateRouteChildren = {
   privatePrivateIndexRoute: privatePrivateIndexRoute,
+  privatePrivateTasksTaskIdRoute: privatePrivateTasksTaskIdRoute,
+  privatePrivateMoreIndexRoute: privatePrivateMoreIndexRoute,
   privatePrivateNotesIndexRoute: privatePrivateNotesIndexRoute,
   privatePrivateSettingsIndexRoute: privatePrivateSettingsIndexRoute,
   privatePrivateTasksIndexRoute: privatePrivateTasksIndexRoute,

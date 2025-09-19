@@ -1,6 +1,8 @@
 import { LangSwitcher, ThemeSwitcher } from "~/features";
 import { Avatar, Box, Flex } from "~/shared/ui";
 
+export type HeaderProps = {};
+
 export const Header = () => {
   return (
     <Box

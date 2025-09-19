@@ -1,7 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate, useSearch } from "@tanstack/react-router";
 import z from "zod";
 import { authManager } from "~/features/auth";
-import { useNavigate, useTranslation } from "~/shared/hooks";
+import { useTranslation } from "~/shared/hooks";
 
 import {
   Button,
@@ -25,6 +26,7 @@ type FormSchema = z.infer<typeof formSchema>;
 export const SignInByLoginForm = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { redirect } = useSearch({ from: "/(auth)/_auth/signin/" });
 
   const {
     register,
@@ -37,7 +39,7 @@ export const SignInByLoginForm = () => {
       const response = await authManager.signInByLogin(data);
 
       if (response.data.success) {
-        navigate({ to: "/" });
+        navigate({ to: redirect || "/" });
       }
     } catch {
       console.log("error");

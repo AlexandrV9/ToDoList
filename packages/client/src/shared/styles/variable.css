@@ -1,14 +1,4 @@
-:root,
-[data-theme="light"] {
-  /* Light theme */
-  /* --text-color: red; */
-}
-
-[data-theme="dark"] {
-  /* Dark theme */
-  /* --text-color: blue; */
-}
-
-html,
-body {
+:root {
+  --fonts-font-family-default: "Inter";
+  --fonts-font-family-accent: "Hagrid Text";
 }

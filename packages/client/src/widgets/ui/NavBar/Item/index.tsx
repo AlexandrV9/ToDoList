@@ -1,14 +1,28 @@
 import type { ReactNode } from "react";
-import { Box, Button, Link, List, type IconProps } from "~/shared/ui";
+import {
+  Box,
+  Button,
+  Link,
+  List,
+  Stack,
+  Text,
+  type IconProps,
+} from "~/shared/ui";
 
 export type NavBarItemProps = {
   id: string;
-  name: string;
+  title: string;
   href: string;
   icon: (props: IconProps) => ReactNode;
+  isActive?: boolean;
 };
 
-export const NavBarItem = ({ href, icon: Icon }: NavBarItemProps) => {
+export const NavBarItem = ({
+  href,
+  isActive,
+  icon: Icon,
+  title,
+}: NavBarItemProps) => {
   return (
     <List.Item
       alignContent="center"
@@ -17,9 +31,19 @@ export const NavBarItem = ({ href, icon: Icon }: NavBarItemProps) => {
       padding={3}
     >
       <Box display="flex" justifyContent="center" alignItems="center">
-        <Button variant="ghost" padding={0}>
+        <Button
+          variant="ghost"
+          height="auto"
+          padding={0}
+          color={isActive ? "purple.focusRing" : "gray"}
+        >
           <Link to={href}>
-            <Icon size={30} />
+            <Stack.VStack gap={1}>
+              <Icon size={30} />
+              <Text fontSize="xs" fontWeight="semibold">
+                {title}
+              </Text>
+            </Stack.VStack>
           </Link>
         </Button>
       </Box>
