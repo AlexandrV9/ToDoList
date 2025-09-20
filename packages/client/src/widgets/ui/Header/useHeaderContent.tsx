@@ -24,9 +24,9 @@ export const useHeaderLeftContent = (content: ReactNode) => {
 };
 
 export const useHeaderCenterContent = (content: ReactNode) => {
-  return useHeaderContent("left", content);
+  return useHeaderContent("center", content);
 };
 
 export const useHeaderRightContent = (content: ReactNode) => {
-  return useHeaderContent("left", content);
+  return useHeaderContent("right", content);
 };

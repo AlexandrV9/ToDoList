@@ -1,7 +1,8 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
-import { useEffect } from "react";
-import { authManager, useAuthStore } from "~/features/auth";
-import { PageLayout } from "~/shared/ui";
+import { useLayoutEffect } from "react";
+import { LangSwitcher, ThemeSwitcher } from "~/features";
+import { authManager, AuthUserAvatar, useAuthStore } from "~/features/auth";
+import { Flex, PageLayout } from "~/shared/ui";
 import { Header, NavBar, useHeaderStore } from "~/widgets";
 
 export const Route = createFileRoute("/(private)/_private")({
@@ -47,8 +48,15 @@ export const Route = createFileRoute("/(private)/_private")({
 export function PrivateLayout() {
   const { setContent } = useHeaderStore();
 
-  useEffect(() => {
-    setContent("left", <div>test</div>);
+  useLayoutEffect(() => {
+    setContent("left", <AuthUserAvatar />);
+    setContent(
+      "right",
+      <Flex justifyContent="end" gap={2}>
+        <LangSwitcher />
+        <ThemeSwitcher />
+      </Flex>
+    );
   }, [setContent]);
 
   return (
