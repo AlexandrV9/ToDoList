@@ -1,17 +1,17 @@
-import { Box, type BoxProps } from "~/shared/ui";
+import { ScrollArea, type ScrollAreaRootProps } from "~/shared/ui";
 
-export interface MainContainerProps extends BoxProps {}
+export interface MainContainerProps extends ScrollAreaRootProps {}
 
-export const MainContainer = ({ ...props }: MainContainerProps) => {
+export const MainContainer = ({ children, ...props }: MainContainerProps) => {
   return (
-    <Box
-      as="main"
-      display="flex"
-      justifyContent="center"
-      alignItems="start"
-      flexGrow={1}
-      overflow="auto"
-      {...props}
-    />
+    <ScrollArea.Root as="main" p="1rem" display="flex" size="xs" {...props}>
+      <ScrollArea.Viewport>
+        <ScrollArea.Content>{children}</ScrollArea.Content>
+      </ScrollArea.Viewport>
+      <ScrollArea.Scrollbar>
+        <ScrollArea.Thumb />
+      </ScrollArea.Scrollbar>
+      <ScrollArea.Corner />
+    </ScrollArea.Root>
   );
 };

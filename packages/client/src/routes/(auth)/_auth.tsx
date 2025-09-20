@@ -1,9 +1,4 @@
-import {
-  createFileRoute,
-  Outlet,
-  redirect,
-  useNavigate,
-} from "@tanstack/react-router";
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import z from "zod";
 import { LangSwitcher, ThemeSwitcher } from "~/features";
 import { authManager, useAuthStore } from "~/features/auth";
@@ -38,14 +33,6 @@ export const Route = createFileRoute("/(auth)/_auth")({
 });
 
 export function AuthLayout() {
-  const navigate = useNavigate();
-
-  const handleGoToWelcomePage = () => {
-    navigate({
-      to: "/welcome",
-    });
-  };
-
   return (
     <PageLayout px="1rem">
       <PageLayout.TopContainer
@@ -60,7 +47,7 @@ export function AuthLayout() {
           justifyContent="space-between"
           alignItems="center"
         >
-          <BackButton onClick={handleGoToWelcomePage} />
+          <BackButton />
           <Flex justifyContent="end" gap={2}>
             <LangSwitcher />
             <ThemeSwitcher />

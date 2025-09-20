@@ -1,14 +1,11 @@
-import { Box } from "~/shared/ui";
+import { Stack } from "~/shared/ui";
+import { AccountSettings, AuthUserInfo } from "~/widgets";
 
 export function SettingsPage() {
   return (
-    <Box
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      flexGrow={1}
-    >
-      SettingsPage
-    </Box>
+    <Stack.VStack alignItems="stretch">
+      <AuthUserInfo />
+      <AccountSettings />
+    </Stack.VStack>
   );
 }

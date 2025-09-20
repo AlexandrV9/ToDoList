@@ -15,7 +15,9 @@ export * from "./Form";
 export * from "./Box";
 export * from "./Heading";
 export * from "./List";
-export * from "./icons";
-export * from "./controls";
 export * from "./Avatar";
 export * from "./PageLayout";
+export * from "./ScrollArea";
+
+export * from "./icons";
+export * from "./controls";

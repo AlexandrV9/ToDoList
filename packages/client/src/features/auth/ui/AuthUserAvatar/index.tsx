@@ -6,7 +6,7 @@ export const AuthUserAvatar = () => {
   const { user } = useAuthStore(); // TODO: user всегда будет на зашищенных страницах
 
   return (
-    <Link to="/profile">
+    <Link to="/settings">
       <UserAvatar userName={user!.name} src={user?.avatar} />
     </Link>
   );

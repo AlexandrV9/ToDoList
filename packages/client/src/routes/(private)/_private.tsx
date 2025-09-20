@@ -1,7 +1,8 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { authManager, useAuthStore } from "~/features/auth";
 import { PageLayout } from "~/shared/ui";
-import { Header, NavBar } from "~/widgets";
+import { Header, NavBar, useHeaderStore } from "~/widgets";
 
 export const Route = createFileRoute("/(private)/_private")({
   beforeLoad: async ({ location }) => {
@@ -44,6 +45,12 @@ export const Route = createFileRoute("/(private)/_private")({
 });
 
 export function PrivateLayout() {
+  const { setContent } = useHeaderStore();
+
+  useEffect(() => {
+    setContent("left", <div>test</div>);
+  }, [setContent]);
+
   return (
     <PageLayout>
       <PageLayout.TopContainer

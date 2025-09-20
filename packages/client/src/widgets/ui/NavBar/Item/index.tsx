@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { memo, type ReactNode } from "react";
 import {
   Box,
   Button,
@@ -17,36 +17,33 @@ export type NavBarItemProps = {
   isActive?: boolean;
 };
 
-export const NavBarItem = ({
-  href,
-  isActive,
-  icon: Icon,
-  title,
-}: NavBarItemProps) => {
-  return (
-    <List.Item
-      alignContent="center"
-      justifyContent="center"
-      alignItems="center"
-      padding={3}
-    >
-      <Box display="flex" justifyContent="center" alignItems="center">
-        <Button
-          variant="ghost"
-          height="auto"
-          padding={0}
-          color={isActive ? "purple.focusRing" : "gray"}
-        >
-          <Link to={href}>
-            <Stack.VStack gap={1}>
-              <Icon size={30} />
-              <Text fontSize="xs" fontWeight="semibold">
-                {title}
-              </Text>
-            </Stack.VStack>
-          </Link>
-        </Button>
-      </Box>
-    </List.Item>
-  );
-};
+export const NavBarItem = memo(
+  ({ href, isActive, icon: Icon, title }: NavBarItemProps) => {
+    return (
+      <List.Item
+        alignContent="center"
+        justifyContent="center"
+        alignItems="center"
+        padding={3}
+      >
+        <Box display="flex" justifyContent="center" alignItems="center">
+          <Button
+            variant="ghost"
+            height="auto"
+            padding={0}
+            color={isActive ? "purple.focusRing" : "gray"}
+          >
+            <Link to={href}>
+              <Stack.VStack gap={1}>
+                <Icon size={30} />
+                <Text fontSize="xs" fontWeight="semibold">
+                  {title}
+                </Text>
+              </Stack.VStack>
+            </Link>
+          </Button>
+        </Box>
+      </List.Item>
+    );
+  }
+);

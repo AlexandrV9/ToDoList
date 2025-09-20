@@ -1,10 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import {
-  createRootRouteWithContext,
-  Outlet,
-  useNavigate,
-  useRouter,
-} from "@tanstack/react-router";
+import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
 
 import type { RouterContext } from "~/app/providers/RouterProvider/types"; // TODO: подумать над другим местом размещения
 import { LangSwitcher, ThemeSwitcher } from "~/features";
@@ -24,21 +19,6 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 });
 
 function NofFoundPage() {
-  const router = useRouter();
-  const navigate = useNavigate();
-
-  const handleGoBackPage = () => {
-    if (router.history.length > 1) {
-      router.history.back();
-      return;
-    }
-
-    navigate({
-      to: "/",
-      replace: true,
-    });
-  };
-
   return (
     <PageLayout>
       <PageLayout.TopContainer
@@ -56,7 +36,7 @@ function NofFoundPage() {
           justifyContent="space-between"
           alignItems="center"
         >
-          <BackButton onClick={handleGoBackPage} />
+          <BackButton />
           <Flex justifyContent="end" gap={2}>
             <LangSwitcher />
             <ThemeSwitcher />

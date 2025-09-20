@@ -18,12 +18,12 @@ import { Route as privatePrivateIndexRouteImport } from './routes/(private)/_pri
 import { Route as publicPublicWelcomeIndexRouteImport } from './routes/(public)/_public.welcome/index'
 import { Route as privatePrivateTasksIndexRouteImport } from './routes/(private)/_private.tasks/index'
 import { Route as privatePrivateSettingsIndexRouteImport } from './routes/(private)/_private.settings/index'
-import { Route as privatePrivateProfileIndexRouteImport } from './routes/(private)/_private.profile/index'
 import { Route as privatePrivateNotesIndexRouteImport } from './routes/(private)/_private.notes/index'
 import { Route as privatePrivateMoreIndexRouteImport } from './routes/(private)/_private.more/index'
 import { Route as authAuthSignupIndexRouteImport } from './routes/(auth)/_auth.signup/index'
 import { Route as authAuthSigninIndexRouteImport } from './routes/(auth)/_auth.signin/index'
 import { Route as privatePrivateTasksTaskIdRouteImport } from './routes/(private)/_private.tasks/$taskId'
+import { Route as privatePrivateSettingsProfileRouteImport } from './routes/(private)/_private.settings/profile'
 
 const publicRouteImport = createFileRoute('/(public)')()
 const privateRouteImport = createFileRoute('/(private)')()
@@ -76,12 +76,6 @@ const privatePrivateSettingsIndexRoute =
     path: '/settings/',
     getParentRoute: () => privatePrivateRoute,
   } as any)
-const privatePrivateProfileIndexRoute =
-  privatePrivateProfileIndexRouteImport.update({
-    id: '/profile/',
-    path: '/profile/',
-    getParentRoute: () => privatePrivateRoute,
-  } as any)
 const privatePrivateNotesIndexRoute =
   privatePrivateNotesIndexRouteImport.update({
     id: '/notes/',
@@ -109,27 +103,33 @@ const privatePrivateTasksTaskIdRoute =
     path: '/tasks/$taskId',
     getParentRoute: () => privatePrivateRoute,
   } as any)
+const privatePrivateSettingsProfileRoute =
+  privatePrivateSettingsProfileRouteImport.update({
+    id: '/settings/profile',
+    path: '/settings/profile',
+    getParentRoute: () => privatePrivateRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof privatePrivateIndexRoute
+  '/settings/profile': typeof privatePrivateSettingsProfileRoute
   '/tasks/$taskId': typeof privatePrivateTasksTaskIdRoute
   '/signin': typeof authAuthSigninIndexRoute
   '/signup': typeof authAuthSignupIndexRoute
   '/more': typeof privatePrivateMoreIndexRoute
   '/notes': typeof privatePrivateNotesIndexRoute
-  '/profile': typeof privatePrivateProfileIndexRoute
   '/settings': typeof privatePrivateSettingsIndexRoute
   '/tasks': typeof privatePrivateTasksIndexRoute
   '/welcome': typeof publicPublicWelcomeIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof privatePrivateIndexRoute
+  '/settings/profile': typeof privatePrivateSettingsProfileRoute
   '/tasks/$taskId': typeof privatePrivateTasksTaskIdRoute
   '/signin': typeof authAuthSigninIndexRoute
   '/signup': typeof authAuthSignupIndexRoute
   '/more': typeof privatePrivateMoreIndexRoute
   '/notes': typeof privatePrivateNotesIndexRoute
-  '/profile': typeof privatePrivateProfileIndexRoute
   '/settings': typeof privatePrivateSettingsIndexRoute
   '/tasks': typeof privatePrivateTasksIndexRoute
   '/welcome': typeof publicPublicWelcomeIndexRoute
@@ -143,12 +143,12 @@ export interface FileRoutesById {
   '/(public)': typeof publicRouteWithChildren
   '/(public)/_public': typeof publicPublicRouteWithChildren
   '/(private)/_private/': typeof privatePrivateIndexRoute
+  '/(private)/_private/settings/profile': typeof privatePrivateSettingsProfileRoute
   '/(private)/_private/tasks/$taskId': typeof privatePrivateTasksTaskIdRoute
   '/(auth)/_auth/signin/': typeof authAuthSigninIndexRoute
   '/(auth)/_auth/signup/': typeof authAuthSignupIndexRoute
   '/(private)/_private/more/': typeof privatePrivateMoreIndexRoute
   '/(private)/_private/notes/': typeof privatePrivateNotesIndexRoute
-  '/(private)/_private/profile/': typeof privatePrivateProfileIndexRoute
   '/(private)/_private/settings/': typeof privatePrivateSettingsIndexRoute
   '/(private)/_private/tasks/': typeof privatePrivateTasksIndexRoute
   '/(public)/_public/welcome/': typeof publicPublicWelcomeIndexRoute
@@ -157,24 +157,24 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/settings/profile'
     | '/tasks/$taskId'
     | '/signin'
     | '/signup'
     | '/more'
     | '/notes'
-    | '/profile'
     | '/settings'
     | '/tasks'
     | '/welcome'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/settings/profile'
     | '/tasks/$taskId'
     | '/signin'
     | '/signup'
     | '/more'
     | '/notes'
-    | '/profile'
     | '/settings'
     | '/tasks'
     | '/welcome'
@@ -187,12 +187,12 @@ export interface FileRouteTypes {
     | '/(public)'
     | '/(public)/_public'
     | '/(private)/_private/'
+    | '/(private)/_private/settings/profile'
     | '/(private)/_private/tasks/$taskId'
     | '/(auth)/_auth/signin/'
     | '/(auth)/_auth/signup/'
     | '/(private)/_private/more/'
     | '/(private)/_private/notes/'
-    | '/(private)/_private/profile/'
     | '/(private)/_private/settings/'
     | '/(private)/_private/tasks/'
     | '/(public)/_public/welcome/'
@@ -276,13 +276,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof privatePrivateSettingsIndexRouteImport
       parentRoute: typeof privatePrivateRoute
     }
-    '/(private)/_private/profile/': {
-      id: '/(private)/_private/profile/'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof privatePrivateProfileIndexRouteImport
-      parentRoute: typeof privatePrivateRoute
-    }
     '/(private)/_private/notes/': {
       id: '/(private)/_private/notes/'
       path: '/notes'
@@ -318,6 +311,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof privatePrivateTasksTaskIdRouteImport
       parentRoute: typeof privatePrivateRoute
     }
+    '/(private)/_private/settings/profile': {
+      id: '/(private)/_private/settings/profile'
+      path: '/settings/profile'
+      fullPath: '/settings/profile'
+      preLoaderRoute: typeof privatePrivateSettingsProfileRouteImport
+      parentRoute: typeof privatePrivateRoute
+    }
   }
 }
 
@@ -347,20 +347,20 @@ const authRouteWithChildren = authRoute._addFileChildren(authRouteChildren)
 
 interface privatePrivateRouteChildren {
   privatePrivateIndexRoute: typeof privatePrivateIndexRoute
+  privatePrivateSettingsProfileRoute: typeof privatePrivateSettingsProfileRoute
   privatePrivateTasksTaskIdRoute: typeof privatePrivateTasksTaskIdRoute
   privatePrivateMoreIndexRoute: typeof privatePrivateMoreIndexRoute
   privatePrivateNotesIndexRoute: typeof privatePrivateNotesIndexRoute
-  privatePrivateProfileIndexRoute: typeof privatePrivateProfileIndexRoute
   privatePrivateSettingsIndexRoute: typeof privatePrivateSettingsIndexRoute
   privatePrivateTasksIndexRoute: typeof privatePrivateTasksIndexRoute
 }
 
 const privatePrivateRouteChildren: privatePrivateRouteChildren = {
   privatePrivateIndexRoute: privatePrivateIndexRoute,
+  privatePrivateSettingsProfileRoute: privatePrivateSettingsProfileRoute,
   privatePrivateTasksTaskIdRoute: privatePrivateTasksTaskIdRoute,
   privatePrivateMoreIndexRoute: privatePrivateMoreIndexRoute,
   privatePrivateNotesIndexRoute: privatePrivateNotesIndexRoute,
-  privatePrivateProfileIndexRoute: privatePrivateProfileIndexRoute,
   privatePrivateSettingsIndexRoute: privatePrivateSettingsIndexRoute,
   privatePrivateTasksIndexRoute: privatePrivateTasksIndexRoute,
 }

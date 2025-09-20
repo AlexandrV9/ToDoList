@@ -9,5 +9,9 @@ export * from "./Home";
 export * from "./ArrowLeft";
 export * from "./More";
 export * from "./User";
+export * from "./SafeLock";
+export * from "./UserCircle";
+export * from "./ChevronLeft";
+export * from "./ChevronRight";
 
 export * from "./withIconProps";
